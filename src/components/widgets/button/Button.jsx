@@ -1,17 +1,6 @@
 import PropTypes from 'prop-types';
 
 const Button = ({ variant = 'filled', size = 'md', href, className, children, ...rest }) => {
-  const getVariant = () => {
-    switch (variant) {
-      case 'outline':
-        return 'border-2 border-dark bg-white text-dark';
-      case 'filled':
-        return 'bg-primary text-dark';
-      default:
-        return '';
-    }
-  };
-
   const getSize = () => {
     switch (size) {
       case 'sm':
@@ -28,10 +17,7 @@ const Button = ({ variant = 'filled', size = 'md', href, className, children, ..
 
   const Button = () => {
     return (
-      <button
-        {...rest}
-        className={`${className} ${getSize()} ${getVariant()}  rounded-lg font-bold`}
-      >
+      <button {...rest} className={`${className} ${getSize()} rounded-lg font-bold`}>
         {children}
       </button>
     );

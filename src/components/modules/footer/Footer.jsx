@@ -7,7 +7,7 @@ const Footer = () => {
     <div>
       <div className="w-full px-5 md:px-10 lg:px-40 py-10 bg-primary-100 grid grid-cols-2 lg:grid-cols-4 gap-3">
         <div className="col-span-2 lg:col-span-1">
-          <img src="/img/logo.png" className="w-fit  h-10 lg:h-20" />
+          <img src="/img/logo.png" className="w-fit h-20 md:h-10 lg:h-20" />
         </div>
 
         <div className="space-y-3">

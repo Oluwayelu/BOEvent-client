@@ -15,12 +15,17 @@
   h6 {
     font-family: 'Nunito';
     font-style: normal;
-    font-weight: 400;
-    @apply text-dark;
+    @apply text-dark font-bold;
   }
 
   h1 {
-    @apply text-6xl font-bold;
+    @apply text-4xl md:text-6xl;
+  }
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+  h3 {
+    @apply text-xl md:text-2xl;
   }
 
   a {
@@ -32,9 +37,17 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
     outline: none !important;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
     -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-br from-primary to-primary-100;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-1 md:w-2 h-0 bg-background;
   }
 }
 

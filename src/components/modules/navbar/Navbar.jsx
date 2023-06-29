@@ -30,8 +30,10 @@ const Navbar = () => {
 
       {/* right */}
       <div className="inline-flex space-x-3 lg:space-x-5">
-        <Button href="#">Create events</Button>
-        <Button href={AUTH_LOGIN} className="bg-dark text-gray-50 ">
+        <Button href="#" className="bg-primary text-dark">
+          Create events
+        </Button>
+        <Button href={AUTH_LOGIN} className="bg-dark text-white">
           Login
         </Button>
       </div>
