@@ -17,7 +17,7 @@ const ExploreEventsView = () => {
               Event Booking <br /> made simple
             </h1>
 
-            <Button href="#" size="lg">
+            <Button href="#" size="lg" className="bg-primary text-dark">
               Create event
             </Button>
           </div>
@@ -49,7 +49,7 @@ const ExploreEventsView = () => {
 
           <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-10">
             {[0, 1, 2, 3, 4, 5, 6].map((i, key) => (
-              <EventCard key={key} />
+              <EventCard key={key} eventData={{ id: i }} />
             ))}
           </div>
         </div>
@@ -59,7 +59,7 @@ const ExploreEventsView = () => {
 
           <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-10">
             {[0, 1, 2, 3].map((i, key) => (
-              <EventCard key={key} />
+              <EventCard key={key} eventData={{ id: i }} />
             ))}
           </div>
         </div>
@@ -69,7 +69,7 @@ const ExploreEventsView = () => {
 
           <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-10">
             {[0, 1, 2].map((i, key) => (
-              <EventCard key={key} />
+              <EventCard key={key} eventData={{ id: i }} />
             ))}
           </div>
         </div>

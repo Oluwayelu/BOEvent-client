@@ -1,3 +1,6 @@
-export { default as Login } from './Login';
-export { default as Register } from './Register';
-export { default as ExploreEvents } from './ExploreEvents';
+import React from 'react';
+
+export const Login = React.lazy(() => import('./Login'));
+export const Register = React.lazy(() => import('./Register'));
+export const BookEvent = React.lazy(() => import('./BookEvent'));
+export const ExploreEvents = React.lazy(() => import('./ExploreEvents'));
