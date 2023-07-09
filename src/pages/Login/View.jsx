@@ -1,29 +1,19 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 import { AUTH_REGISTER } from 'routes/CONSTANTS';
-import { Button, Input } from 'components/widgets';
-import { loginSchema } from 'utils/validations';
+import { Button, Input, Spinner } from 'components/widgets';
 
-const LoginView = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-    resolver: yupResolver(loginSchema),
-  });
-
-  const onSubmit = (data) => console.log(data);
+const LoginView = ({ loading, errMsg, errors, register, onSubmit }) => {
   return (
     <div className="w-full space-y-5">
+      {errMsg && (
+        <div className="w-full p-2 rounded-lg bg-error">
+          <p className="text-sm text-center text-white">{errMsg}</p>
+        </div>
+      )}
       {/* form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-3">
+      <form onSubmit={onSubmit} className="w-full space-y-3">
         <Input
           size="lg"
           type="email"
@@ -41,7 +31,7 @@ const LoginView = () => {
           {...register('password')}
         />
 
-        <Button type="submit" size="lg" className="w-full bg-dark text-gray-50">
+        <Button loading={loading} type="submit" size="lg" className="w-full bg-dark text-gray-50">
           Login
         </Button>
       </form>
@@ -58,6 +48,14 @@ const LoginView = () => {
       </div>
     </div>
   );
+};
+
+LoginView.propTypes = {
+  loading: PropTypes.bool,
+  errors: PropTypes.object,
+  onSubmit: PropTypes.func,
+  register: PropTypes.func,
+  errMsg: PropTypes.string,
 };
 
 export default LoginView;

@@ -1,29 +1,25 @@
-import { Button } from 'components/widgets';
-import { EventCard } from 'components/modules';
+import { useBackground } from 'hooks';
+import { EventCard, Search } from 'components/modules';
 
 const ExploreEventsView = () => {
+  const image = useBackground();
   return (
     <div className="">
       {/* parallax */}
       <div className="relative h-[50vh] lg:h-[65vh] bg-primary-100 ">
         <img
-          src="/img/parallax-blob.png"
-          className="w-full h-2/3 lg:h-full absolute bottom-0 z-0"
+          src={image}
+          className="w-full h-full filter object-cover object-center absolute inset-0 z-0"
         />
 
-        <div className="relative w-full h-full px-5 py-10 md:px-10 lg:px-40 lg:py-20 flex z-10">
-          <div className="w-full lg:w-1/2 h-full flex flex-col justify-between">
-            <h1 className="">
-              Event Booking <br /> made simple
+        <div className="relative w-full h-full p-5 md:px-10 lg:px-40 bg-dark/50 flex z-10">
+          <div className="relative w-full lg:w-2/3 h-full flex flex-col justify-around">
+            <h1 className="leading-snug text-white">
+              Unlock Unforgettable Experiences: <br />{' '}
+              <span className="text-primary-200">Book</span> Your Adventure Today!
             </h1>
 
-            <Button href="#" size="lg" className="bg-primary text-dark">
-              Create event
-            </Button>
-          </div>
-
-          <div className="w-1/2 h-full hidden lg:flex items-center justify-center">
-            <img src="/img/garden.png" />
+            <Search />
           </div>
         </div>
       </div>

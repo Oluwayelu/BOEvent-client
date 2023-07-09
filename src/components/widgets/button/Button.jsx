@@ -1,6 +1,15 @@
 import PropTypes from 'prop-types';
+import { Spinner } from 'components/widgets';
 
-const Button = ({ variant = 'filled', size = 'md', href, className, children, ...rest }) => {
+const Button = ({
+  variant = 'filled',
+  size = 'md',
+  href,
+  loading,
+  className,
+  children,
+  ...rest
+}) => {
   const getSize = () => {
     switch (size) {
       case 'sm':
@@ -18,7 +27,7 @@ const Button = ({ variant = 'filled', size = 'md', href, className, children, ..
   const Button = () => {
     return (
       <button {...rest} className={`${className} ${getSize()} rounded-lg font-bold`}>
-        {children}
+        {loading ? <Spinner /> : children}
       </button>
     );
   };
@@ -36,6 +45,7 @@ const Button = ({ variant = 'filled', size = 'md', href, className, children, ..
 
 Button.propTypes = {
   href: PropTypes.string,
+  loading: PropTypes.bool,
   children: PropTypes.node,
   className: PropTypes.string,
   size: PropTypes.oneOf(['sm', 'md', 'lg']),

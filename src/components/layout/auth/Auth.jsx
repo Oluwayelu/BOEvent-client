@@ -1,18 +1,10 @@
+import { useBackground } from 'hooks';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
 
 import { EXPLORE_EVENTS } from 'routes/CONSTANTS';
 
 const Auth = ({ children, title }) => {
-  const [image, setImage] = useState('');
-
-  useEffect(() => {
-    const generateRandomNum = () => {
-      return Math.floor(Math.random() * (4 - 1) + 1);
-    };
-
-    setImage(`/img/login-img${generateRandomNum()}.png`);
-  }, []);
+  const image = useBackground();
 
   return (
     <div className="w-full h-screen relative flex jusstify-end bg-primary">

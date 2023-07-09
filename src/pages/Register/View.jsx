@@ -1,32 +1,19 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 import { AUTH_LOGIN } from 'routes/CONSTANTS';
-import { Button, Input } from 'components/widgets';
-import { registerSchema } from 'utils/validations';
+import { Button, Input, Spinner } from 'components/widgets';
 
-const RegisterView = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      email: '',
-      password: '',
-      lastname: '',
-      firstname: '',
-      confirmPassword: '',
-    },
-    resolver: yupResolver(registerSchema),
-  });
-
-  const onSubmit = (data) => console.log(data);
+const RegisterView = ({ loading, errMsg, errors, register, onSubmit }) => {
   return (
     <div className="w-full space-y-5">
+      {errMsg && (
+        <div className="w-full p-2 rounded-lg bg-error">
+          <p className="text-sm text-center text-white">{errMsg}</p>
+        </div>
+      )}
       {/* form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-3">
+      <form onSubmit={onSubmit} className="w-full space-y-3">
         <div className="w-full flex gap-3">
           <Input
             size="lg"
@@ -69,12 +56,18 @@ const RegisterView = () => {
             {...register('confirmPassword')}
           />
         </div>
-
-        <Button type="submit" size="lg" className="w-full bg-dark text-gray-50">
+        <p>
+          By registering you have accepted the{' '}
+          <Link to="#" className="font-bold text-dark hover:text-primary-300">
+            Terms & Condition
+          </Link>{' '}
+          for this website
+        </p>
+        <Button loading={loading} type="submit" size="lg" className="w-full bg-dark text-gray-50">
           Register
         </Button>
       </form>
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex items-center justify-center">
         <p>
           Already have an account?{' '}
           <Link to={AUTH_LOGIN} className="font-bold text-dark hover:text-primary-300">
@@ -84,6 +77,14 @@ const RegisterView = () => {
       </div>
     </div>
   );
+};
+
+RegisterView.propTypes = {
+  loading: PropTypes.bool,
+  errors: PropTypes.object,
+  onSubmit: PropTypes.func,
+  register: PropTypes.func,
+  errMsg: PropTypes.string,
 };
 
 export default RegisterView;

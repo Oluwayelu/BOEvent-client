@@ -4,7 +4,7 @@ import { Button } from 'components/widgets';
 
 const BookEventView = () => {
   return (
-    <div className="px-5 py-5 md:px-10 lg:px-40 lg:py-20 space-y-5 lg:space-y-10">
+    <div className="px-5 py-5 md:px-10 lg:px-40 lg:py-10 space-y-5 lg:space-y-10">
       {/* event banner */}
       <div className="w-full h-[40vh] md:h-[60vh] bg-primary-100">
         <img
@@ -13,7 +13,7 @@ const BookEventView = () => {
         />
       </div>
       {/* event header */}
-      <div className="w-full lg:w-2/3 flex flex-col md:flex-row items-stretch">
+      <div className="w-full lg:w-2/3 flex flex-col md:flex-row items-stretch md:space-x-3">
         {/* event date */}
         <div className="w-full md:w-1/6">
           <div className="w-20 h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 flex items-center justify-center rounded-lg bg-primary">

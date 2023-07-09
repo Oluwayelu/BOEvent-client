@@ -19,7 +19,7 @@
   }
 
   h1 {
-    @apply text-4xl md:text-6xl;
+    @apply text-4xl md:text-5xl lg:text-6xl;
   }
   h2 {
     @apply text-3xl md:text-4xl;

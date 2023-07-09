@@ -18,6 +18,15 @@ const RouteConfig = () => {
         }
       />
 
+      <Route
+        path={`${BOOK_EVENT}/:id`}
+        element={
+          <Suspense fallback={<Loader />}>
+            <BookEvent />
+          </Suspense>
+        }
+      />
+
       {/* public routes */}
       <Route path="/" element={<PublicRoute />}>
         <Route
@@ -33,15 +42,6 @@ const RouteConfig = () => {
           element={
             <Suspense fallback={<Loader />}>
               <Register />
-            </Suspense>
-          }
-        />
-
-        <Route
-          path={`${BOOK_EVENT}/:id`}
-          element={
-            <Suspense fallback={<Loader />}>
-              <BookEvent />
             </Suspense>
           }
         />
