@@ -1,7 +1,10 @@
-import { useBackground } from 'hooks';
-import { EventCard, Search } from 'components/modules';
+import PropTypes from 'prop-types';
+import Skeleton from 'react-loading-skeleton';
 
-const ExploreEventsView = () => {
+import { useBackground } from 'hooks';
+import { EventCard, EventCardSkeleton, Search } from 'components/modules';
+
+const ExploreEventsView = ({ loading, error, events }) => {
   const image = useBackground();
   return (
     <div className="">
@@ -41,12 +44,11 @@ const ExploreEventsView = () => {
 
         {/*  */}
         <div className="space-y-5">
-          <h3 className="text-2xl font-bold">Upcoming event</h3>
+          <h3 className="text-2xl font-bold">{'Upcoming event' || <Skeleton />}</h3>
 
           <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-10">
-            {[0, 1, 2, 3, 4, 5, 6].map((i, key) => (
-              <EventCard key={key} eventData={{ id: i }} />
-            ))}
+            {loading || (!events && <EventCardSkeleton cards={4} />)}
+            {events && events.map((event, key) => <EventCard key={key} eventData={event} />)}
           </div>
         </div>
 
@@ -54,9 +56,8 @@ const ExploreEventsView = () => {
           <h3 className="text-2xl font-bold">Free event</h3>
 
           <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-10">
-            {[0, 1, 2, 3].map((i, key) => (
-              <EventCard key={key} eventData={{ id: i }} />
-            ))}
+            {loading || (!events && <EventCardSkeleton cards={4} />)}
+            {events && events.map((event, key) => <EventCard key={key} eventData={event} />)}
           </div>
         </div>
 
@@ -64,14 +65,19 @@ const ExploreEventsView = () => {
           <h3 className="text-2xl font-bold">Charity event</h3>
 
           <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-10">
-            {[0, 1, 2].map((i, key) => (
-              <EventCard key={key} eventData={{ id: i }} />
-            ))}
+            {loading || (!events && <EventCardSkeleton cards={4} />)}
+            {events && events.map((event, key) => <EventCard key={key} eventData={event} />)}
           </div>
         </div>
       </div>
     </div>
   );
+};
+
+ExploreEventsView.propTypes = {
+  loading: PropTypes.bool,
+  events: PropTypes.array,
+  error: PropTypes.string,
 };
 
 export default ExploreEventsView;

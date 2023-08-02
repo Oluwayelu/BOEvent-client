@@ -1,17 +1,16 @@
-import { useContext } from 'react';
+import { useQuery } from '@apollo/client';
 
-import { AuthContext } from 'context/auth';
 import { Landing } from 'components/layout';
+import { GET_EVENTS } from 'api/event/queries';
 
 import View from './View';
 
 export const ExploreEventsContainer = () => {
-  const { isAuth } = useContext(AuthContext);
+  const { loading, error, data } = useQuery(GET_EVENTS);
 
-  console.log(isAuth);
   return (
     <Landing>
-      <View />
+      <View loading={loading} error={error} events={data?.events} />
     </Landing>
   );
 };
