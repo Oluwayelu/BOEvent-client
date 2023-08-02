@@ -9,3 +9,22 @@ export const GET_USERS = gql`
     }
   }
 `;
+
+export const LOGIN_SUCCESS = gql`
+  query LoginSuccess {
+    loginSuccess {
+      message
+      user {
+        avatar
+        email
+        followers
+        following
+        name {
+          firstname
+          fullname
+          lastname
+        }
+      }
+    }
+  }
+`;

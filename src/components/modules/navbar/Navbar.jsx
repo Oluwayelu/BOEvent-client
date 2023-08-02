@@ -4,13 +4,13 @@ import { AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
 
 import { AuthContext } from 'context/auth';
 import { Button } from 'components/widgets';
-import { AUTH_LOGIN, EXPLORE_EVENTS } from 'routes/CONSTANTS';
+import { AUTH_LOGIN, CREATE_EVENT, EXPLORE_EVENTS } from 'routes/CONSTANTS';
 
 import NavLink from './NavLink';
 
 const Navbar = () => {
   const { pathname } = useLocation();
-  const { isAuth } = useContext(AuthContext);
+  const { isAuth, user, logout } = useContext(AuthContext);
 
   return (
     <div className="sticky top-0 left-0 right-0 w-full h-[10vh] px-5 md:px-10 py-5 flex items-center justify-between bg-white z-50">
@@ -39,22 +39,27 @@ const Navbar = () => {
       </div>
 
       {/* right */}
-      {isAuth ? (
-        <div className="inline-flex space-x-3 lg:space-x-5">
-          <div className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center">
-            <AiOutlineUser className="w-8 h-8 border-dark" />
+      <div className="inline-flex space-x-3 lg:space-x-5">
+        <Button href={CREATE_EVENT} className="bg-primary text-dark">
+          Create events
+        </Button>
+        {isAuth ? (
+          <div
+            onClick={logout}
+            className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center overflow-hidden cursor-pointer"
+          >
+            {user?.avatar ? (
+              <img src={user?.avatar} className="w-full h-full object-center object-cover" />
+            ) : (
+              <AiOutlineUser className="w-8 h-8 border-dark" />
+            )}
           </div>
-        </div>
-      ) : (
-        <div className="inline-flex space-x-3 lg:space-x-5">
-          <Button href="#" className="bg-primary text-dark">
-            Create events
-          </Button>
+        ) : (
           <Button href={AUTH_LOGIN} className="bg-dark text-white">
             Login
           </Button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
