@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { httpLink, authLink } from 'utils/auth';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_GRAPHQLAPI_URL,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
