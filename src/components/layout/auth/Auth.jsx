@@ -7,7 +7,7 @@ const Auth = ({ children, title }) => {
   const image = useBackground();
 
   return (
-    <div className="w-full h-screen relative flex jusstify-end bg-primary">
+    <div className="w-full h-screen relative flex justify-end">
       <img src={image} className="w-full h-full absolute inset-0 filter object-left object-cover" />
       <div className="w-full h-full bg-primary-100/80 lg:bg-primary-100/20 absolute inset-0 z" />
 

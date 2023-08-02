@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { AUTH_LOGIN, AUTH_REGISTER, BOOK_EVENT, EXPLORE_EVENTS } from './CONSTANTS';
-import { BookEvent, ExploreEvents, Login, Register } from 'pages';
-import { PublicRoute } from 'components/guards';
+import { AUTH_LOGIN, AUTH_REGISTER, BOOK_EVENT, CREATE_EVENT, EXPLORE_EVENTS } from './CONSTANTS';
+import { BookEvent, CreateEvent, ExploreEvents, Login, PageNotFound, Register } from 'pages';
+import { ProtectedRoute, PublicRoute } from 'components/guards';
 import { Loader } from 'components/modules';
 
 const RouteConfig = () => {
@@ -46,6 +46,20 @@ const RouteConfig = () => {
           }
         />
       </Route>
+
+      {/* protected routes */}
+      <Route path="/" element={<ProtectedRoute />}>
+        <Route
+          path={CREATE_EVENT}
+          element={
+            <Suspense fallback={<Loader />}>
+              <CreateEvent />
+            </Suspense>
+          }
+        />
+      </Route>
+
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 };

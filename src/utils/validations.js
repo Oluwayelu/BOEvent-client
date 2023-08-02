@@ -15,3 +15,17 @@ export const registerSchema = yup.object({
     .oneOf([yup.ref('password'), null], 'Password must match')
     .required('Confirm password required'),
 });
+
+export const eventSchema = yup.object({
+  title: yup.string().required('Event title is required'),
+  summary: yup.string().required('Summary is required'),
+  description: yup.string().required('Description is required'),
+  eventType: yup.string(),
+  location: yup.string(),
+  startDate: yup.string(),
+  startTime: yup.string(),
+  endDate: yup.string(),
+  endTime: yup.string(),
+  price: yup.number(),
+  banners: yup.array().required('Event banner can not be empty'),
+});

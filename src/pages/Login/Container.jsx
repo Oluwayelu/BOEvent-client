@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
@@ -8,15 +7,12 @@ import { useQuery } from 'hooks';
 import { Auth } from 'components/layout';
 import { LOGIN } from 'api/users/mutations';
 import { loginSchema } from 'utils/validations';
-import { AuthContext } from 'context/auth';
 
 import LoginView from './View';
-import { EXPLORE_EVENTS } from 'routes/CONSTANTS';
 
 export const LoginContainer = () => {
   const query = useQuery();
   const navigate = useNavigate();
-  const { setToken } = useContext(AuthContext);
 
   const {
     register,
@@ -33,12 +29,13 @@ export const LoginContainer = () => {
   const [loginUser, { loading, error, data }] = useMutation(LOGIN);
   const onSubmit = ({ email, password }) => {
     loginUser({ variables: { email, password } }).then((res) => {
-      setToken(res.data.login?.token);
+      localStorage.setItem('token', res.data.login?.token);
       const redirect = query.get('redirect');
+      console.log(redirect);
       if (redirect) {
         navigate(redirect);
-        window.location.reload();
       }
+      window.location.reload();
     });
   };
 
