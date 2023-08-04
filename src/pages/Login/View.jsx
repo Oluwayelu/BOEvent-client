@@ -2,16 +2,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { AUTH_REGISTER } from 'routes/CONSTANTS';
+import { Notification } from 'components/modules';
 import { Button, Input, Spinner } from 'components/widgets';
 
 const LoginView = ({ loading, errMsg, errors, register, onSubmit }) => {
   return (
     <div className="w-full space-y-5">
-      {errMsg && (
-        <div className="w-full p-2 rounded-lg bg-error">
-          <p className="text-sm text-center text-white">{errMsg}</p>
-        </div>
-      )}
+      <Notification type="error" content={errMsg} />
       {/* form */}
       <form onSubmit={onSubmit} className="w-full space-y-3">
         <Input
