@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { FaUpload } from 'react-icons/fa';
+import { MdOutlineCloudUpload } from 'react-icons/md';
 import PropTypes from 'prop-types';
 
 import { useDropzone } from 'react-dropzone';
@@ -28,7 +29,7 @@ const Dropzone = (props) => {
         className="w-full h-60 flex flex-col items-center justify-center rounded-lg bg-white shadow cursor-pointer"
       >
         <input {...getInputProps()} />
-        <FaUpload className="w-10 h-10" />
+        <MdOutlineCloudUpload className="w-20 h-20" />
         <p className="text-lg">{isDragActive ? 'Drop' : 'Click / Drop'} event images here</p>
       </div>
 
