@@ -1,15 +1,19 @@
 import PropTypes from 'prop-types';
 import { Controller } from 'react-hook-form';
-import { Card, Dropzone } from 'components/modules';
-import { Button, Input, TextArea } from 'components/widgets';
-import { EXPLORE_EVENTS } from 'routes/CONSTANTS';
 
-const CreateEventView = ({ loading, control, errMsg, errors, register, onSubmit }) => {
+import { EXPLORE_EVENTS } from 'routes/CONSTANTS';
+import { Button, Input, TextArea } from 'components/widgets';
+import { Card, Dropzone, Notification } from 'components/modules';
+
+const CreateEventView = ({ loading, control, errMsg, sucMsg, errors, register, onSubmit }) => {
   return (
     <form
       onSubmit={onSubmit}
       className="relative w-full lg:h-[90vh] px-5 pt-5 md:pt-10 md:px-10 lg:px-40 flex flex-col lg:flex-row gap-5 lg:gap-5"
     >
+      <Notification type="success" content={sucMsg} />
+      <Notification type="error" content={errMsg} />
+
       {/* Upload banner */}
       <div className="w-full lg:w-1/3 lg:pb-10 h-full space-y-5">
         <h2>Create event</h2>
@@ -100,6 +104,7 @@ const CreateEventView = ({ loading, control, errMsg, errors, register, onSubmit 
             control={control}
             render={({ field: { value } }) => (
               <Input
+                error={errors.location}
                 label={value === 'venue' ? 'Location' : 'Meeting link'}
                 placeholder={value === 'venue' ? 'Enter location of event' : 'Enter meeting link'}
                 {...register('location')}
@@ -245,7 +250,7 @@ const CreateEventView = ({ loading, control, errMsg, errors, register, onSubmit 
           <Button href={EXPLORE_EVENTS} size="lg" className="bg-error text-white">
             Cancel
           </Button>
-          <Button type="submit" size="lg" className="bg-primary">
+          <Button loading={loading} type="submit" size="lg" className="bg-primary">
             Submit
           </Button>
         </div>
@@ -261,6 +266,7 @@ CreateEventView.propTypes = {
   onSubmit: PropTypes.func,
   register: PropTypes.func,
   errMsg: PropTypes.string,
+  sucMsg: PropTypes.string,
 };
 
 export default CreateEventView;
