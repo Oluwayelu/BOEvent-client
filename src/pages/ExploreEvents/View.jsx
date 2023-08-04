@@ -47,8 +47,9 @@ const ExploreEventsView = ({ loading, error, events }) => {
           <h3 className="text-2xl font-bold">{'Upcoming event' || <Skeleton />}</h3>
 
           <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-10">
-            {loading || (!events && <EventCardSkeleton cards={4} />)}
-            {events && events.map((event, key) => <EventCard key={key} eventData={event} />)}
+            {(events && events.map((event, key) => <EventCard key={key} eventData={event} />)) || (
+              <EventCardSkeleton cards={4} />
+            )}
           </div>
         </div>
 
@@ -56,8 +57,9 @@ const ExploreEventsView = ({ loading, error, events }) => {
           <h3 className="text-2xl font-bold">Free event</h3>
 
           <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-10">
-            {loading || (!events && <EventCardSkeleton cards={4} />)}
-            {events && events.map((event, key) => <EventCard key={key} eventData={event} />)}
+            {(events && events.map((event, key) => <EventCard key={key} eventData={event} />)) || (
+              <EventCardSkeleton cards={4} />
+            )}
           </div>
         </div>
 
@@ -65,8 +67,9 @@ const ExploreEventsView = ({ loading, error, events }) => {
           <h3 className="text-2xl font-bold">Charity event</h3>
 
           <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-10">
-            {loading || (!events && <EventCardSkeleton cards={4} />)}
-            {events && events.map((event, key) => <EventCard key={key} eventData={event} />)}
+            {(events && events.map((event, key) => <EventCard key={key} eventData={event} />)) || (
+              <EventCardSkeleton cards={4} />
+            )}
           </div>
         </div>
       </div>
