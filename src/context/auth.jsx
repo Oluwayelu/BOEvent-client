@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
-import { createContext, useState, useEffect, useLayoutEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 import { LOGIN_SUCCESS } from 'api/users/queries';
 
@@ -18,9 +18,7 @@ const AuthProvider = ({ children }) => {
   const { loading, data, error } = useQuery(LOGIN_SUCCESS);
 
   useEffect(() => {
-    console.log('loading: ', loading);
     if (!loading && data?.loginSuccess?.user !== undefined) {
-      // setIsAuth(true);
       setIsAuth(true);
       setUser(data?.loginSuccess?.user);
     }

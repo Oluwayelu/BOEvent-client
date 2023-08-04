@@ -1,13 +1,17 @@
-import { useContext } from 'react';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { AuthContext } from 'context/auth';
 import { AUTH_LOGIN } from 'routes/CONSTANTS';
+import { LOGIN_SUCCESS } from 'api/users/queries';
 
 const ProtectedRoute = () => {
+  const navigate = useNavigate();
+  const { data } = useQuery(LOGIN_SUCCESS);
   const { pathname } = useLocation();
-  const { isAuth } = useContext(AuthContext);
-  return isAuth ? <Outlet /> : <Navigate to={AUTH_LOGIN + `?redirect=${pathname}`} replace />;
+  if (!data?.loginSuccess?.user) {
+    navigate(AUTH_LOGIN + `?redirect=${pathname}`);
+  }
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
