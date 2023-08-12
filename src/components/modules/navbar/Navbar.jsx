@@ -3,8 +3,17 @@ import { useLocation, Link } from 'react-router-dom';
 import { AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
 
 import { AuthContext } from 'context/auth';
-import { Button } from 'components/widgets';
-import { AUTH_LOGIN, CREATE_EVENT, EXPLORE_EVENTS } from 'routes/CONSTANTS';
+import { Button, Dropdown, DropdownLink } from 'components/widgets';
+import {
+  AUTH_LOGIN,
+  CREATE_EVENT,
+  DASHBOARD,
+  EXPLORE_EVENTS,
+  MY_EVENTS,
+  ORDERS,
+  SETTINGS_PASSWORD,
+  SETTINGS_USER,
+} from 'routes/CONSTANTS';
 
 import NavLink from './NavLink';
 
@@ -44,16 +53,32 @@ const Navbar = () => {
           Create events
         </Button>
         {isAuth ? (
-          <div
-            onClick={logout}
-            className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center overflow-hidden cursor-pointer"
+          <Dropdown
+            button={
+              <div className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center overflow-hidden cursor-pointer">
+                {user?.avatar ? (
+                  <img src={user?.avatar} className="w-full h-full object-center object-cover" />
+                ) : (
+                  <AiOutlineUser className="w-8 h-8 border-dark" />
+                )}
+              </div>
+            }
           >
-            {user?.avatar ? (
-              <img src={user?.avatar} className="w-full h-full object-center object-cover" />
-            ) : (
-              <AiOutlineUser className="w-8 h-8 border-dark" />
-            )}
-          </div>
+            <div className="flex flex-col space-y-1">
+              <DropdownLink to={DASHBOARD}>Dashboard</DropdownLink>
+              <DropdownLink to={MY_EVENTS}>My events</DropdownLink>
+              <DropdownLink to={ORDERS}>Orders</DropdownLink>
+            </div>
+            <div className="flex flex-col space-y-1">
+              <DropdownLink to={SETTINGS_USER}>My profile</DropdownLink>
+              <DropdownLink to={SETTINGS_PASSWORD}>Change password</DropdownLink>
+            </div>
+            <div className="flex flex-col space-y-1">
+              <div onClick={logout} className="text-error cursor-pointer">
+                Logout
+              </div>
+            </div>
+          </Dropdown>
         ) : (
           <Button href={AUTH_LOGIN} className="bg-dark text-white">
             Login
