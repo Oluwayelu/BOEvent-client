@@ -50,7 +50,7 @@ const Profile = ({ children }) => {
         {/* body */}
         <div className="w-full flex flex-col items-end p-5 md:py-10 md:px-10 lg:px-40 space-y-5">
           {/* tabs */}
-          <div className="w-full md:w-3/4 flex space-x-5">
+          <div className="w-full md:w-3/4 flex">
             <NavLink to={DASHBOARD}>Dashboard</NavLink>
             <NavLink to={MY_EVENTS}>My event</NavLink>
             <NavLink to={ORDERS}>Orders</NavLink>

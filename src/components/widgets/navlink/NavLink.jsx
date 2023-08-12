@@ -9,8 +9,8 @@ const CustomNavLink = ({ to, children, activeClassName = '' }) => {
         isActive
           ? activeClassName
             ? activeClassName
-            : 'bg-primary px-5 py-2 rounded-lg font-bold'
-          : 'hover:bg-primary px-5 py-2 rounded-lg'
+            : 'bg-primary px-2 md:px-5 py-2 rounded-lg font-bold'
+          : 'hover:bg-primary px-2 md:px-5 py-2 rounded-lg'
       }
     >
       {children}
