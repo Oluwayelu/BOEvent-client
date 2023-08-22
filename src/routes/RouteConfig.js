@@ -1,8 +1,27 @@
 import { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { AUTH_LOGIN, AUTH_REGISTER, BOOK_EVENT, CREATE_EVENT, EXPLORE_EVENTS } from './CONSTANTS';
-import { BookEvent, CreateEvent, ExploreEvents, Login, PageNotFound, Register } from 'pages';
+import {
+  AUTH_LOGIN,
+  AUTH_REGISTER,
+  BOOK_EVENT,
+  CREATE_EVENT,
+  DASHBOARD,
+  EXPLORE_EVENTS,
+  MY_EVENTS,
+  SETTINGS_USER,
+} from './CONSTANTS';
+import {
+  BookEvent,
+  CreateEvent,
+  Dashboard,
+  ExploreEvents,
+  Login,
+  MyEvents,
+  PageNotFound,
+  Register,
+  SettingsUserInfo,
+} from 'pages';
 import { ProtectedRoute, PublicRoute } from 'components/guards';
 import { Loader } from 'components/modules';
 
@@ -57,6 +76,10 @@ const RouteConfig = () => {
             </Suspense>
           }
         />
+
+        <Route path={DASHBOARD} element={<Dashboard />} />
+        <Route path={MY_EVENTS} element={<MyEvents />} />
+        <Route path={SETTINGS_USER} element={<SettingsUserInfo />} />
       </Route>
 
       <Route path="*" element={<PageNotFound />} />
