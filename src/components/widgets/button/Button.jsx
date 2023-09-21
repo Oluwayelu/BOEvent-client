@@ -13,7 +13,7 @@ const Button = ({
   const getSize = () => {
     switch (size) {
       case 'sm':
-        return 'px-2 h-10 text-sm';
+        return 'px-2 h-8 text-xs';
       case 'md':
         return 'px-4 h-12 text-base';
       case 'lg':
