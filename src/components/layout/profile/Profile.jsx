@@ -5,12 +5,11 @@ import Skeleton from 'react-loading-skeleton';
 
 import { AuthContext } from 'context/auth';
 import { Navbar } from 'components/modules';
-import { NavLink } from 'components/widgets';
+import { Avatar, NavLink } from 'components/widgets';
 import { DASHBOARD, MY_EVENTS, ORDERS, SETTINGS_USER } from 'routes/CONSTANTS';
 
 const Profile = ({ children }) => {
   const { user } = useContext(AuthContext);
-  console.log(user);
 
   return (
     <div className="min-h-screen ">
@@ -25,12 +24,7 @@ const Profile = ({ children }) => {
           <div className="absolute w-full h-full inset-0 flex items-center md:items-end p-5 md:py-10 md:px-10 lg:px-40">
             <div className="w-full flex flex-col md:flex-row md:space-x-5">
               {/* avatar */}
-              <div className="w-28 h-28 md:w-48 md:h-48 lg:w-60 lg:h-60 border-4 md:border-8 border-white bg-gray rounded-full overflow-hidden">
-                <img
-                  src="/img/user-male.png"
-                  className="w-full h-full object-center object-cover"
-                />
-              </div>
+              <Avatar size="lg" src="/img/user-male.png" />
 
               {/* user info */}
               <div className="w-fit flex flex-col space-y-1">

@@ -3,7 +3,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
 
 import { AuthContext } from 'context/auth';
-import { Button, Dropdown, DropdownLink } from 'components/widgets';
+import { Avatar, Button, Dropdown, DropdownLink } from 'components/widgets';
 import {
   AUTH_LOGIN,
   CREATE_EVENT,
@@ -48,22 +48,12 @@ const Navbar = () => {
       </div>
 
       {/* right */}
-      <div className="inline-flex space-x-3 lg:space-x-5">
+      <div className="inline-flex items-center space-x-2 lg:space-x-4">
         <Button href={CREATE_EVENT} className="bg-primary text-dark">
           Create events
         </Button>
         {isAuth ? (
-          <Dropdown
-            button={
-              <div className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center overflow-hidden cursor-pointer">
-                {user?.avatar ? (
-                  <img src={user?.avatar} className="w-full h-full object-center object-cover" />
-                ) : (
-                  <AiOutlineUser className="w-8 h-8 border-dark" />
-                )}
-              </div>
-            }
-          >
+          <Dropdown button={<Avatar size="sm" src={user?.avatar} />}>
             <div className="flex flex-col space-y-1">
               <DropdownLink to={DASHBOARD}>Dashboard</DropdownLink>
               <DropdownLink to={MY_EVENTS}>My events</DropdownLink>
