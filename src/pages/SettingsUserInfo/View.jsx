@@ -10,7 +10,7 @@ const SettingsUserInfoView = ({ loading, errMsg, errors, register, onSubmit }) =
       <Sidebar />
 
       {/* body content */}
-      <div className="w-1/2">
+      <div className="w-full md:w-3/4 space-y-3">
         <div className="w-20 h-20 md:w-28 md:h-28 lg:w-48 lg:h-48 border-4 md:border-8 border-white bg-gray rounded-full overflow-hidden">
           <img src="/img/user-male.png" className="w-full h-full object-center object-cover" />
         </div>

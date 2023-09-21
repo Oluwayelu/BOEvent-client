@@ -29,7 +29,7 @@ const SidebarLink = ({ to, title, value }) => {
 SidebarLink.propTypes = {
   to: PropTypes.string,
   title: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.number,
 };
 
 export default SidebarLink;
