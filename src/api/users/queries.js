@@ -15,6 +15,7 @@ export const LOGIN_SUCCESS = gql`
     loginSuccess {
       message
       user {
+        id
         avatar
         email
         followers

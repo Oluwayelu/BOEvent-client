@@ -9,7 +9,6 @@ export const CREATE_EVENT = gql`
         title
         banner
         description
-        organizer
         price
         summary
         time {

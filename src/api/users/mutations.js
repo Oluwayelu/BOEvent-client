@@ -22,3 +22,29 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const FOLLOW = gql`
+  mutation Follow($userId: String!) {
+    follow(userId: $userId) {
+      message
+      user {
+        email
+        following
+        followers
+      }
+    }
+  }
+`;
+
+export const UNFOLLOW = gql`
+  mutation UnFollow($userId: String!) {
+    unFollow(userId: $userId) {
+      message
+      user {
+        email
+        following
+        followers
+      }
+    }
+  }
+`;

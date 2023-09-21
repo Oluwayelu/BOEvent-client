@@ -7,7 +7,6 @@ export const GET_EVENTS = gql`
       title
       banner
       description
-      organizer
       price
       summary
       time {
@@ -31,7 +30,6 @@ export const GET_EVENT_BY_ID = gql`
       title
       banner
       description
-      organizer
       price
       summary
       time {
@@ -43,6 +41,13 @@ export const GET_EVENT_BY_ID = gql`
       venue {
         location
         type
+      }
+      organizer {
+        name {
+          fullname
+        }
+        followers
+        id
       }
     }
   }

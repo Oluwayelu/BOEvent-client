@@ -1,16 +1,23 @@
+import PropTypes from 'prop-types';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
-import { Button } from 'components/widgets';
+import { Avatar, Button } from 'components/widgets';
+import { getDate, getTime, diffTime } from 'utils/date-time';
 
-const BookEventView = () => {
+const BookEventView = ({
+  event,
+  follow,
+  ticket,
+  noOfTickets,
+  isFollowing,
+  isOrganizer,
+  totalPrice,
+}) => {
   return (
     <div className="px-5 py-5 md:px-10 lg:px-40 lg:py-10 space-y-5 lg:space-y-10">
       {/* event banner */}
       <div className="w-full h-[40vh] md:h-[60vh] bg-primary-100">
-        <img
-          src="/img/sample-event.png"
-          className="w-full h-full filter object-center object-cover"
-        />
+        <img src={event?.banner[0]} className="w-full h-full filter object-center object-cover" />
       </div>
       {/* event header */}
       <div className="w-full lg:w-2/3 flex flex-col md:flex-row items-stretch md:space-x-3">
@@ -18,7 +25,8 @@ const BookEventView = () => {
         <div className="w-full md:w-1/6">
           <div className="w-20 h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 flex items-center justify-center rounded-lg bg-primary">
             <p className="text-xl md:text-2xl text-center font-extrabold">
-              21 <br /> JUN
+              {getDate(event.time.startDate).day} <br />
+              {getDate(event.time.startDate).month}
             </p>
           </div>
         </div>
@@ -26,21 +34,29 @@ const BookEventView = () => {
         {/*  */}
         <div className="w-full md:w-5/6 py-1 flex flex-col justify-between">
           <div>
-            <h2>Learn forex for beginners</h2>
+            <h2>{event?.title}</h2>
           </div>
 
           <div className="w-full grid grid-cols-2 md:grid-cols-3">
             <div>
               <p className="text-lg text-primary-300 font-bold">Location</p>
-              <p>Online event</p>
+              <p>{event.venue.type === 'online' ? 'Online event' : event.venue.location}</p>
             </div>
             <div>
               <p className="text-lg text-primary-300 font-bold">Date</p>
-              <p>Wed, 21 JUN</p>
+              <p>
+                <span>{getDate(event.time.startDate).date}</span>
+                {event.time.startDate !== event.time.endDate && (
+                  <span> - {getDate(event.time.endDate).date}</span>
+                )}
+              </p>
             </div>
             <div>
               <p className="text-lg text-primary-300 font-bold">Time</p>
-              <p>8:00 PM - 10:00 PM (2h)</p>
+              <p>
+                {getTime(event.time.startTime)} - {getTime(event.time.endTime)} (
+                {diffTime(event.time.startTime, event.time.endTime)})
+              </p>
             </div>
           </div>
         </div>
@@ -50,33 +66,24 @@ const BookEventView = () => {
         <div className="w-full lg:w-2/3 space-y-5">
           <div>
             <h3>About event</h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit alias error aperiam
-              quasi eos eum eligendi, repellendus odit est corrupti sapiente eveniet quis odio dolor
-              sed, recusandae commodi nihil dolorem. Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Fugit alias error aperiam quasi eos eum eligendi, repellendus odit
-              est corrupti sapiente eveniet quis odio dolor sed, recusandae commodi nihil dolorem.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit alias error aperiam
-              quasi eos eum eligendi, repellendus odit est corrupti sapiente eveniet quis odio dolor
-              sed, recusandae commodi nihil dolorem. Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Fugit alias error aperiam quasi eos eum eligendi, repellendus odit
-              est corrupti sapiente eveniet quis odio dolor sed, recusandae commodi nihil dolorem.s
-            </p>
+            <p dangerouslySetInnerHTML={{ __html: event.description }} />
           </div>
 
           <div className="w-full h-px bg-white" />
           <div className="space-y-3">
             <h3>Organizer</h3>
 
-            <div className="flex items-stretch space-x-3">
-              <div className="w-20 h-20 bg-white rounded-full"></div>
+            <div className="flex items-center space-x-3">
+              <Avatar size="sm" src={event.organizer.avatar} />
               <div className="flex flex-col justify-around">
-                <p className="font-bold">Oluwayelu Ifeoluwa</p>
-                <div className="flex items-center space-x-3">
-                  <div>2 followers</div>
-                  <Button size="sm" className="border-2 border-dark text-dark">
-                    Follow
-                  </Button>
+                <p className="font-bold">{event.organizer.name.fullname}</p>
+                <div className="flex items-center space-x-2">
+                  <div>{event.organizer.followers.length} followers</div>
+                  {!isOrganizer && (
+                    <Button onClick={follow} size="sm" className="border-2 border-dark text-dark">
+                      {isFollowing ? 'Unfollow' : 'Follow'}
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>
@@ -90,11 +97,14 @@ const BookEventView = () => {
                 <p className="text-lg font-bold">No. of Tickets:</p>
 
                 <div className="flex items-center space-x-3">
-                  <Button className="bg-primary-100">
+                  <Button
+                    onClick={() => ticket('sub')}
+                    className={noOfTickets > 1 ? 'bg-primary' : 'bg-primary-100'}
+                  >
                     <FaMinus className="w-3 h-3" />
                   </Button>
-                  <p>1</p>
-                  <Button className="bg-primary">
+                  <p>{noOfTickets}</p>
+                  <Button onClick={() => ticket()} className="bg-primary">
                     <FaPlus className="w-3 h-3" />
                   </Button>
                 </div>
@@ -104,12 +114,24 @@ const BookEventView = () => {
 
             <div className="w-full flex justify-between items-center">
               <p className="text-lg font-bold">Ticket price: </p>
-              <h3>5,000</h3>
+              <h3>
+                {event.price > 0 ? (
+                  event.price.toLocaleString()
+                ) : (
+                  <span className="italic">free</span>
+                )}
+              </h3>
             </div>
             <div className="w-full h-px bg-background" />
             <div className="w-full flex justify-between items-center">
               <p className="text-lg font-bold">Total price: </p>
-              <h3>5,000</h3>
+              <h3>
+                {totalPrice > 0 ? (
+                  totalPrice.toLocaleString()
+                ) : (
+                  <span className="italic">free</span>
+                )}
+              </h3>
             </div>
 
             <Button className="w-full bg-dark text-white">Book event</Button>
@@ -118,6 +140,17 @@ const BookEventView = () => {
       </div>
     </div>
   );
+};
+
+BookEventView.propTypes = {
+  loading: PropTypes.bool,
+  event: PropTypes.object,
+  ticket: PropTypes.func,
+  follow: PropTypes.func,
+  noOfTickets: PropTypes.number,
+  totalPrice: PropTypes.number,
+  isFollowing: PropTypes.bool,
+  isOrganizer: PropTypes.bool,
 };
 
 export default BookEventView;
