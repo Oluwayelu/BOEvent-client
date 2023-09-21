@@ -2,19 +2,20 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { useToast } from 'hooks';
 import { Landing } from 'components/layout';
 import { eventSchema } from 'utils/validations';
-
-import CreateEventView from './View';
 import { CREATE_EVENT } from 'api/event/mutations';
 
+import CreateEventView from './View';
+
 export const CreateEventContainer = () => {
+  const { toast } = useToast();
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-    getValues,
   } = useForm({
     defaultValues: {
       title: '',
@@ -34,7 +35,7 @@ export const CreateEventContainer = () => {
     resolver: yupResolver(eventSchema),
   });
 
-  const [createEvent, { loading, error, data }] = useMutation(CREATE_EVENT);
+  const [createEvent, { loading }] = useMutation(CREATE_EVENT);
   const onSubmit = (data) => {
     createEvent({
       variables: {
@@ -56,7 +57,13 @@ export const CreateEventContainer = () => {
           },
         },
       },
-    });
+    })
+      .then((res) => {
+        toast('success', res.data?.createEvent?.message);
+      })
+      .catch((err) => {
+        toast('error', err?.message);
+      });
   };
 
   return (
@@ -66,9 +73,6 @@ export const CreateEventContainer = () => {
         control={control}
         loading={loading}
         register={register}
-        getValues={getValues}
-        sucMsg={data?.createEvent?.message}
-        errMsg={error?.message}
         onSubmit={handleSubmit(onSubmit)}
       />
     </Landing>

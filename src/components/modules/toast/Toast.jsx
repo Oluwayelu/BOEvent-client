@@ -1,22 +1,17 @@
-import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Notification = ({ content, title = true, type = 'success' }) => {
-  const [value, setValue] = useState(content);
+import { ToastContext } from 'context';
 
-  const remove = () => {
-    setValue('');
-  };
+const Toast = () => {
+  const { type, content, remove } = useContext(ToastContext);
 
   useEffect(() => {
-    setValue(content);
-
     if (content) {
       setTimeout(() => {
         remove();
-      }, 5000);
+      }, 4000);
     }
   }, [content]);
 
@@ -27,7 +22,7 @@ const Notification = ({ content, title = true, type = 'success' }) => {
       case 'warning':
         return 'bg-yellow-500';
       case 'error':
-        return 'bg-error';
+        return 'bg-red-500';
 
       default:
         return 'bg-green-500';
@@ -39,24 +34,24 @@ const Notification = ({ content, title = true, type = 'success' }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ x: '-12rem', opacity: 0 }}
-      className="fixed top-[12vh] right-5 md:right-20 z-50"
+      className="fixed top-[10vh] right-5 md:right-20 z-50"
     >
       <AnimatePresence>
-        {value && (
+        {content && (
           <motion.div
             layout
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: '5rem' }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             exit={{ x: '-12rem', opacity: 0 }}
-            className={`${color()} relative w-fit max-w-[60vw] p-3 rounded-lg shadow text-white text-xl space-y-1`}
+            className={`${color()} relative w-fit max-w-[60vw] p-3 rounded-lg shadow text-white  md:text-xls space-y-1`}
           >
             <div className="w-full flex items-center justify-between">
-              <p className="font-bold capitalize">{title && type}</p>
+              <p className="font-bold capitalize">{type}</p>
               <MdOutlineCancel onClick={remove} className=" w-5 h-5 cursor-pointer" />
             </div>
-            {title && <div className="w-full h-px bg-white" />}
-            <div>{value}</div>
+            <div className="w-full h-px bg-white" />
+            <div>{content}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -64,10 +59,4 @@ const Notification = ({ content, title = true, type = 'success' }) => {
   );
 };
 
-Notification.propTypes = {
-  title: PropTypes.bool,
-  content: PropTypes.string,
-  type: PropTypes.oneOf(['error', 'success', 'warning']),
-};
-
-export default Notification;
+export default Toast;

@@ -12,7 +12,7 @@ const defaultState = {
 
 export const AuthContext = createContext(defaultState);
 
-const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
   const { loading, data, error } = useQuery(LOGIN_SUCCESS);
@@ -37,5 +37,3 @@ const AuthProvider = ({ children }) => {
 AuthProvider.propTypes = {
   children: PropTypes.node,
 };
-
-export default AuthProvider;

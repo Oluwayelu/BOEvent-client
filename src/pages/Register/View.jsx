@@ -2,16 +2,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { AUTH_LOGIN } from 'routes/CONSTANTS';
-import { Button, Input, Spinner } from 'components/widgets';
+import { Button, Input } from 'components/widgets';
 
-const RegisterView = ({ loading, errMsg, errors, register, onSubmit }) => {
+const RegisterView = ({ loading, errors, register, onSubmit }) => {
   return (
     <div className="w-full space-y-5">
-      {errMsg && (
-        <div className="w-full p-2 rounded-lg bg-error">
-          <p className="text-sm text-center text-white">{errMsg}</p>
-        </div>
-      )}
       {/* form */}
       <form onSubmit={onSubmit} className="w-full space-y-3">
         <div className="w-full flex gap-3">
@@ -84,7 +79,6 @@ RegisterView.propTypes = {
   errors: PropTypes.object,
   onSubmit: PropTypes.func,
   register: PropTypes.func,
-  errMsg: PropTypes.string,
 };
 
 export default RegisterView;

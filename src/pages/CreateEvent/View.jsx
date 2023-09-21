@@ -3,17 +3,14 @@ import { Controller } from 'react-hook-form';
 
 import { EXPLORE_EVENTS } from 'routes/CONSTANTS';
 import { Button, Input, TextArea } from 'components/widgets';
-import { Card, Dropzone, Notification } from 'components/modules';
+import { Card, Dropzone } from 'components/modules';
 
-const CreateEventView = ({ loading, control, errMsg, sucMsg, errors, register, onSubmit }) => {
+const CreateEventView = ({ loading, control, errors, register, onSubmit }) => {
   return (
     <form
       onSubmit={onSubmit}
       className="relative w-full lg:h-[90vh] px-5 pt-5 md:pt-10 md:px-10 lg:px-40 flex flex-col lg:flex-row gap-5 lg:gap-5"
     >
-      <Notification type="success" content={sucMsg} />
-      <Notification type="error" content={errMsg} />
-
       {/* Upload banner */}
       <div className="w-full lg:w-1/3 lg:pb-10 h-full space-y-5">
         <h2>Create event</h2>
@@ -265,8 +262,6 @@ CreateEventView.propTypes = {
   control: PropTypes.object,
   onSubmit: PropTypes.func,
   register: PropTypes.func,
-  errMsg: PropTypes.string,
-  sucMsg: PropTypes.string,
 };
 
 export default CreateEventView;
