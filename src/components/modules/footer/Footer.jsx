@@ -53,22 +53,13 @@ const Footer = () => {
         </div>
 
         <div className="flex space-x-3">
-          <a
-            href="#"
-            className="w-6 h-6 flex items-center justify-center bg-white rounded-full transform hover:scale-125 duration-300"
-          >
+          <a href="#" className="w-6 h-6 flex items-center justify-center bg-white rounded-full">
             <FaTwitter className="w-3 h-3 text-dark" />
           </a>
-          <a
-            href="#"
-            className="w-6 h-6 flex items-center justify-center bg-white rounded-full transform hover:scale-125 duration-300"
-          >
+          <a href="#" className="w-6 h-6 flex items-center justify-center bg-white rounded-full">
             <FaFacebook className="w-3 h-3 text-dark" />
           </a>
-          <a
-            href="#"
-            className="w-6 h-6 flex items-center justify-center bg-white rounded-full transform hover:scale-125 duration-300"
-          >
+          <a href="#" className="w-6 h-6 flex items-center justify-center bg-white rounded-full">
             <FaInstagram className="w-3 h-3 text-dark" />
           </a>
         </div>
