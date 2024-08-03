@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const LikedEvents = () => {
-  return (
-    <div>LikedEvents</div>
-  )
-}
+  return <div>LikedEvents</div>;
+};
 
-export default LikedEvents
+export default LikedEvents;

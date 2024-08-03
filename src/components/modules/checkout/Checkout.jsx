@@ -135,7 +135,10 @@ const Checkout = ({ close, data }) => {
               <div>
                 <h3>Shipping Address</h3>
 
-                <form onSubmit={handleSubmit(onSubmit)} className="w-full grid grid-cols-2 gap-3 pb-3">
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="w-full grid grid-cols-2 gap-3 pb-3"
+                >
                   <Input
                     label="Firstname"
                     error={errors.firstname}

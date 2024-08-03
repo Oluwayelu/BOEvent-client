@@ -95,7 +95,7 @@ export const CreateEventContainer = () => {
             endTime,
             startTime,
             startDate,
-            type: eventRepeat
+            type: eventRepeat,
           },
           venue: {
             location,
