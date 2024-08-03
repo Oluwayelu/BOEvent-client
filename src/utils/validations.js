@@ -18,14 +18,15 @@ export const registerSchema = yup.object({
 
 export const eventSchema = yup.object({
   title: yup.string().required('Event title is required'),
+  url: yup.string().required('Custom url is required'),
+  category: yup.string().required('Category is required'),
   summary: yup.string().required('Summary is required'),
   description: yup.string().required('Description is required'),
-  eventType: yup.string(),
   location: yup.string().required('Location is required'),
   startDate: yup.string().required('Start date is required'),
   startTime: yup.string().required('Start time is required'),
   endDate: yup.string().required('End date is required'),
   endTime: yup.string().required('End time is required'),
-  price: yup.number(),
+  price: yup.number().moreThan(0, 'Price is required'),
   banner: yup.array().required('Event banner can not be empty'),
 });

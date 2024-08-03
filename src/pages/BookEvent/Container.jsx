@@ -1,6 +1,7 @@
 import { useQuery, useMutation } from '@apollo/client';
 import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useCycle, AnimatePresence } from 'framer-motion';
 
 import { useToast } from 'hooks';
 import { AuthContext } from 'context';
@@ -11,12 +12,14 @@ import { GET_EVENT_BY_ID } from 'api/event/queries';
 import { FOLLOW, UNFOLLOW } from 'api/users/mutations';
 
 import BookEventView from './View';
+import { Checkout } from 'components/modules';
 
 export const BookEventContainer = () => {
-  const { id } = useParams();
+  const { url } = useParams();
   const { toast } = useToast();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const [open, setOpen] = useCycle(false, true);
   const [totalPrice, setTotalPrice] = useState(0);
   const [noOfTickets, setNoOfTickets] = useState(1);
   const [isOrganizer, setIsOrganizer] = useState(false);
@@ -24,7 +27,7 @@ export const BookEventContainer = () => {
 
   const { loading, error, data, refetch } = useQuery(GET_EVENT_BY_ID, {
     variables: {
-      eventId: id,
+      url,
     },
   });
 
@@ -40,15 +43,22 @@ export const BookEventContainer = () => {
     setIsFollowing(() => {
       return data?.event.organizer.followers.includes(user?.id);
     });
-  }, []);
+  }, [data?.event.organizer.followers, user?.id]);
 
   useEffect(() => {
-    refetch({ eventId: id });
+    refetch({ url });
     setIsOrganizer(() => {
       return user?.id ? data?.event.organizer.id === user?.id : true;
     });
-    data?.event.price && setTotalPrice(data?.event.price * noOfTickets);
-  }, [noOfTickets, isOrganizer, isFollowing]);
+    data?.event.ticket.type === 'paid' && setTotalPrice(data?.event.ticket.price * noOfTickets);
+  }, [
+    noOfTickets,
+    isOrganizer,
+    isFollowing,
+    data?.event.ticket.type,
+    data?.event.organizer.id,
+    user?.id,
+  ]);
 
   const [followUser, {}] = useMutation(FOLLOW, {
     variables: {
@@ -111,16 +121,27 @@ export const BookEventContainer = () => {
           <Spinner />
         </div>
       ) : (
-        <BookEventView
-          ticket={ticket}
-          noOfTickets={noOfTickets}
-          totalPrice={totalPrice}
-          loading={loading}
-          event={data?.event}
-          follow={follow}
-          isFollowing={isFollowing}
-          isOrganizer={isOrganizer}
-        />
+        <>
+          <BookEventView
+            ticket={ticket}
+            noOfTickets={noOfTickets}
+            totalPrice={totalPrice}
+            loading={loading}
+            event={data?.event}
+            follow={follow}
+            isFollowing={isFollowing}
+            isOrganizer={isOrganizer}
+            bookEvent={() => setOpen()}
+          />
+          {open && (
+            <AnimatePresence>
+              <Checkout
+                close={() => setOpen()}
+                data={{ ...data?.event, noOfTickets, totalPrice }}
+              />
+            </AnimatePresence>
+          )}
+        </>
       )}
     </Landing>
   );

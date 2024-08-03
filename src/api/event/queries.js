@@ -5,10 +5,15 @@ export const GET_EVENTS = gql`
     events {
       id
       title
+      url
       banner
-      description
-      price
-      summary
+      category
+      ticket {
+        type
+        price
+        stock
+        stockType
+      }
       time {
         endDate
         endTime
@@ -24,14 +29,21 @@ export const GET_EVENTS = gql`
 `;
 
 export const GET_EVENT_BY_ID = gql`
-  query ($eventId: String!) {
-    event(id: $eventId) {
+  query ($url: String!) {
+    event(url: $url) {
       id
       title
+      url
       banner
       description
-      price
+      category
       summary
+      ticket {
+        type
+        price
+        stock
+        stockType
+      }
       time {
         endDate
         endTime
@@ -48,6 +60,34 @@ export const GET_EVENT_BY_ID = gql`
         }
         followers
         id
+      }
+    }
+  }
+`;
+
+export const GET_My_EVENTS_CREATED = gql`
+  query GetMyEvents {
+    myEvents {
+      id
+      title
+      url
+      banner
+      category
+      ticket {
+        type
+        price
+        stock
+        stockType
+      }
+      time {
+        endDate
+        endTime
+        startDate
+        startTime
+      }
+      venue {
+        location
+        type
       }
     }
   }

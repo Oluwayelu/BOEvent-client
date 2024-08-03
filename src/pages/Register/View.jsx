@@ -6,7 +6,7 @@ import { Button, Input } from 'components/widgets';
 
 const RegisterView = ({ loading, errors, register, onSubmit }) => {
   return (
-    <div className="w-full space-y-5">
+    <div className="w-full space-y-3 md:space-y-5">
       {/* form */}
       <form onSubmit={onSubmit} className="w-full space-y-3">
         <div className="w-full flex gap-3">

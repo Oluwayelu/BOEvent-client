@@ -6,7 +6,7 @@ import { Button, Input } from 'components/widgets';
 
 const LoginView = ({ loading, errors, register, onSubmit }) => {
   return (
-    <div className="w-full space-y-5">
+    <div className="w-full space-y-3 md:space-y-5">
       {/* form */}
       <form onSubmit={onSubmit} className="w-full space-y-3">
         <Input
@@ -29,17 +29,20 @@ const LoginView = ({ loading, errors, register, onSubmit }) => {
         <Button loading={loading} type="submit" size="lg" className="w-full bg-dark text-gray-50">
           Login
         </Button>
+        <div className="w-full flex items-center justify-end">
+          <Link to="#" className="font-bold text-dark hover:text-primary-300">
+            Forgotten password?
+          </Link>
+        </div>
       </form>
-      <div className="w-full flex flex-col lg:flex-row items-center justify-between">
+
+      <div className="w-full flex items-center justify-center">
         <p>
           Don't have an account?{' '}
           <Link to={AUTH_REGISTER} className="font-bold text-dark hover:text-primary-300">
             Register.
           </Link>
         </p>
-        <Link to="#" className="font-bold text-dark hover:text-primary-300">
-          Forgotten password?
-        </Link>
       </div>
     </div>
   );

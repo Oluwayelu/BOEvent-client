@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
-import { FaPlus, FaMinus } from 'react-icons/fa';
+import { FaPlus, FaMinus, FaCalendar, FaClock, FaLocationArrow } from 'react-icons/fa';
 
-import { Avatar, Button } from 'components/widgets';
+import { MdLocationPin, MdCalendarToday } from 'react-icons/md';
+
+import { Avatar, Button, NairaIcon } from 'components/widgets';
 import { getDate, getTime, diffTime } from 'utils/date-time';
 
 const BookEventView = ({
@@ -12,7 +14,9 @@ const BookEventView = ({
   isFollowing,
   isOrganizer,
   totalPrice,
+  bookEvent,
 }) => {
+  console.log(event);
   return (
     <div className="px-5 py-5 md:px-10 lg:px-40 lg:py-10 space-y-5 lg:space-y-10">
       {/* event banner */}
@@ -39,11 +43,17 @@ const BookEventView = ({
 
           <div className="w-full grid grid-cols-2 md:grid-cols-3">
             <div>
-              <p className="text-lg text-primary-300 font-bold">Location</p>
+              <div className="flex items-center text-primary-300 gap-1">
+                <MdLocationPin className="w-5 h-5" />
+                <p className="text-lg text-primary-300 font-bold">Location</p>
+              </div>
               <p>{event.venue.type === 'online' ? 'Online event' : event.venue.location}</p>
             </div>
             <div>
-              <p className="text-lg text-primary-300 font-bold">Date</p>
+              <div className="flex items-center text-primary-300 gap-1">
+                <MdCalendarToday className="w-5 h-5" />
+                <p className="text-lg font-bold">Date</p>
+              </div>
               <p>
                 <span>{getDate(event.time.startDate).date}</span>
                 {event.time.startDate !== event.time.endDate && (
@@ -52,7 +62,10 @@ const BookEventView = ({
               </p>
             </div>
             <div>
-              <p className="text-lg text-primary-300 font-bold">Time</p>
+              <div className="flex items-center text-primary-300 gap-1">
+                <FaClock className="w-5 h-5" />
+                <p className="text-lg text-primary-300 font-bold">Time</p>
+              </div>
               <p>
                 {getTime(event.time.startTime)} - {getTime(event.time.endTime)} (
                 {diffTime(event.time.startTime, event.time.endTime)})
@@ -109,14 +122,20 @@ const BookEventView = ({
                   </Button>
                 </div>
               </div>
-              <div className="px-5 py-1 bg-background rounded-full text-sm">50 Remaining</div>
+              {event.ticket.stockType === 'limited' && (
+                <div className="px-5 py-1 bg-background rounded-full text-sm">
+                  {event.ticket.stock} Remaining
+                </div>
+              )}
             </div>
 
             <div className="w-full flex justify-between items-center">
               <p className="text-lg font-bold">Ticket price: </p>
               <h3>
-                {event.price > 0 ? (
-                  event.price.toLocaleString()
+                {event.ticket.type === 'paid' ? (
+                  <span>
+                    <NairaIcon /> {event.ticket.price.toLocaleString()}
+                  </span>
                 ) : (
                   <span className="italic">free</span>
                 )}
@@ -127,14 +146,18 @@ const BookEventView = ({
               <p className="text-lg font-bold">Total price: </p>
               <h3>
                 {totalPrice > 0 ? (
-                  totalPrice.toLocaleString()
+                  <span>
+                    <NairaIcon /> {totalPrice.toLocaleString()}
+                  </span>
                 ) : (
                   <span className="italic">free</span>
                 )}
               </h3>
             </div>
 
-            <Button className="w-full bg-dark text-white">Book event</Button>
+            <Button onClick={bookEvent} className="w-full bg-dark text-white">
+              Book event
+            </Button>
           </div>
         </div>
       </div>
@@ -151,6 +174,7 @@ BookEventView.propTypes = {
   totalPrice: PropTypes.number,
   isFollowing: PropTypes.bool,
   isOrganizer: PropTypes.bool,
+  bookEvent: PropTypes.func,
 };
 
 export default BookEventView;

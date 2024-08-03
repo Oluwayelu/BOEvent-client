@@ -22,7 +22,7 @@ const Navbar = () => {
   const { isAuth, user, logout } = useContext(AuthContext);
 
   return (
-    <div className="sticky top-0 left-0 right-0 w-full h-[10vh] px-5 md:px-10 py-5 flex items-center justify-between bg-white z-50">
+    <div className="sticky top-0 left-0 right-0 w-full h-[10vh] px-5 md:px-10 py-5 flex items-center justify-between bg-white z-40">
       {/* left */}
       <div className="inline-flex space-x-10">
         {/* logo */}

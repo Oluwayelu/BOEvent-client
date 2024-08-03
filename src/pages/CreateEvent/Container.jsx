@@ -19,31 +19,36 @@ export const CreateEventContainer = () => {
   } = useForm({
     defaultValues: {
       title: '',
+      url: '',
       summary: '',
       description: '',
       location: '',
+      category: '',
       startDate: '',
       startTime: '',
       endDate: '',
       endTime: '',
       price: 0,
       free: false,
-      banner: ['/img/sample-event.png'],
-      eventType: 'venue',
-      eventRepeat: 'once',
+      banner: ['/img/bg-img3.jpg'],
+      eventType: 'online',
+      eventRepeat: 'single event',
     },
     resolver: yupResolver(eventSchema),
   });
 
   const [createEvent, { loading }] = useMutation(CREATE_EVENT);
   const onSubmit = (data) => {
+    console.log(data);
     createEvent({
       variables: {
         eventInput: {
           title: data.title,
+          url: data.url,
           price: data.price,
           banner: data.banner,
           summary: data.summary,
+          category: data.category,
           description: data.description,
           time: {
             endDate: data.endDate,
@@ -62,6 +67,7 @@ export const CreateEventContainer = () => {
         toast('success', res.data?.createEvent?.message);
       })
       .catch((err) => {
+        console.error(err);
         toast('error', err?.message);
       });
   };

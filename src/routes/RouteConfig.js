@@ -14,6 +14,7 @@ import {
 import {
   BookEvent,
   CreateEvent,
+  CreateEventNew,
   Dashboard,
   ExploreEvents,
   Login,
@@ -38,7 +39,7 @@ const RouteConfig = () => {
       />
 
       <Route
-        path={`${BOOK_EVENT}/:id`}
+        path={`${BOOK_EVENT}/:url`}
         element={
           <Suspense fallback={<Loader />}>
             <BookEvent />
@@ -72,7 +73,7 @@ const RouteConfig = () => {
           path={CREATE_EVENT}
           element={
             <Suspense fallback={<Loader />}>
-              <CreateEvent />
+              <CreateEventNew />
             </Suspense>
           }
         />

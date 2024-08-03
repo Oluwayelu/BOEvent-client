@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-background font-Nunito;
+    @apply bg-primary-100/30 font-Nunito;
   }
 
   h1,

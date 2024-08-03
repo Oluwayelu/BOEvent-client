@@ -7,10 +7,17 @@ export const CREATE_EVENT = gql`
       event {
         id
         title
+        url
         banner
         description
-        price
+        category
         summary
+        ticket {
+          type
+          price
+          stock
+          stockType
+        }
         time {
           endDate
           endTime

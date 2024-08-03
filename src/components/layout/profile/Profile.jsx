@@ -18,8 +18,11 @@ const Profile = ({ children }) => {
       {/* body */}
       <div className="min-h-[90vh] w-full">
         {/* parallax */}
-        <div className="relative w-full h-[45vh] bg-primary-100">
-          <img src="/img/profile-background.png" className="hidden md:block w-full h-full" />
+        <div className="relative w-full h-[60vh] md:h-[45vh] bg-primary-100">
+          <img
+            src="/img/profile-background.png"
+            className="absolute bottom-0 inset-x-0 w-full h-fit object-contain object-center"
+          />
 
           <div className="absolute w-full h-full inset-0 flex items-center md:items-end p-5 md:py-10 md:px-10 lg:px-40">
             <div className="w-full flex flex-col md:flex-row md:space-x-5">
@@ -46,7 +49,6 @@ const Profile = ({ children }) => {
           {/* tabs */}
           <div className="w-full md:w-3/4 flex md:space-x-5">
             <NavLink to={DASHBOARD}>Dashboard</NavLink>
-            <NavLink to={MY_EVENTS}>My event</NavLink>
             <NavLink to={ORDERS}>Orders</NavLink>
             <NavLink to={SETTINGS_USER}>Settings</NavLink>
           </div>

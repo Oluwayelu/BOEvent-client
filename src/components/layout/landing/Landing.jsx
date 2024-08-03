@@ -8,7 +8,7 @@ const Landing = ({ children, footer = true }) => {
       {/* navbar */}
       <Navbar />
       {/* content */}
-      <div className="min-h-[90vh]">{children}</div>
+      <div className="relative min-h-[90vh]">{children}</div>
       {/* footer */}
       {footer && <Footer />}
     </div>
